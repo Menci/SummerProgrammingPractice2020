@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 from http.server import HTTPServer, BaseHTTPRequestHandler
-from typing import List
+from typing import Dict, List, Optional
 import json
 import sqlite3
+import pickle
 
 allowed_result_count = 100
 
@@ -20,9 +21,30 @@ database.execute('''
 ''')
 
 student_id_list = open("server_data/student_id_list").read().splitlines()
-testdata = [s.split(" ") for s in open("server_data/testdata").read().splitlines()]
-query_list = [x[0] for x in testdata]
+testdata = [s.split(" ", 2) for s in open("server_data/testdata").read().splitlines()]
+query_list = [x[1] for x in testdata]
 query_count = len(testdata)
+
+print("Loading data")
+urls: List[str] = pickle.load(open("server_data/urls.bin", "rb"))
+sim = pickle.load(open("server_data/sim.bin", "rb"))
+url_id: Dict[str, int] = {urls[i]: i for i in range(len(urls))}
+
+def url_to_id(url: str) -> Optional[int]:
+    if url.endswith("/"):
+        url = url[:-1]
+    return url_id.get(url)
+
+def check_sim(url1: str, url2: str) -> bool:
+    id1 = url_to_id(url1)
+    id2 = url_to_id(url2)
+    if id1 is None or id2 is None:
+        return False
+    if id1 == id2:
+        return True
+    if id1 > id2:
+        id1, id2 = id2, id1
+    return sim[id1][id2] > 0.9
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -62,12 +84,14 @@ class Handler(BaseHTTPRequestHandler):
                 
                 indexes: List[float] = []
                 for i in range(query_count):
-                    try:
-                        index = data.get("cases")[i].index(testdata[i][1])
-                        indexes.append(index + 1)
-                    except ValueError:
-                        indexes.append(-1)
-                
+                    query_result: List[str] = data.get("cases")[i]
+                    index = -1
+                    for j in range(len(query_result)):
+                        if check_sim(query_result[j], testdata[i][0]):
+                            index = j + 1
+                            break
+                    indexes.append(index)
+
                 score: float = 0
                 for index in indexes:
                     if index != -1:
@@ -81,6 +105,8 @@ class Handler(BaseHTTPRequestHandler):
                     json.dumps(data.get("raw_cases"))
                 ))
                 database.commit()
+
+                print("%s submitted: score = %f, average_time = %f" % (data.get("student_id"), score, float(data.get("average_time"))))
 
                 self.send_response(200)
                 self.end_headers()

@@ -4,6 +4,7 @@ import sys
 import json
 import os
 import time
+import urllib.error
 from urllib import request, parse
 from typing import List, Tuple
 
@@ -22,22 +23,30 @@ def parse_arguments() -> Tuple[str, str]:
     return url, student_id
 
 def get_query_list() -> List[str]:
-    data = request.urlopen(request.Request(server + "/query_list")).read()
-    query_list = json.loads(data)
-    print("Retrieved %d queries from server" % len(query_list))
-    return query_list
+    try:
+        data = request.urlopen(request.Request(server + "/query_list")).read()
+        query_list = json.loads(data)
+        print("Retrieved %d queries from server" % len(query_list))
+        return query_list
+    except urllib.error.URLError:
+        print("Error communicating with the submit server!")
+        exit(1)
 
 def do_query(url: str, query: str) -> Tuple[List[str], float]:
-    data = {"query": query}
-    req = request.Request(url + "?" + parse.urlencode(data))
+    try:
+        data = {"query": query}
+        req = request.Request(url + "?" + parse.urlencode(data))
 
-    start_time = time.monotonic()
-    res = request.urlopen(req)
-    end_time = time.monotonic()
+        start_time = time.monotonic()
+        res = request.urlopen(req)
+        end_time = time.monotonic()
 
-    res_data: str = res.read().decode("utf-8")
+        res_data: str = res.read().decode("utf-8").strip()
 
-    return [url.strip() for url in res_data.strip().splitlines()], end_time - start_time
+        return [url.strip() for url in res_data.strip().splitlines()], end_time - start_time
+    except urllib.error.URLError:
+        print("Error communicating with your web server, do you have a server running on %s?" % repr(url))
+        exit(1)
 
 def submit(student_id: str, cases: List[List[str]], average_time: float):
     print("Submitting your result to server")
