@@ -28,12 +28,16 @@ query_count = len(testdata)
 print("Loading data")
 urls: List[str] = pickle.load(open("server_data/urls.bin", "rb"))
 sim = pickle.load(open("server_data/sim.bin", "rb"))
-url_id: Dict[str, int] = {urls[i]: i for i in range(len(urls))}
 
-def url_to_id(url: str) -> Optional[int]:
+def normalize_url(url: str) -> str:
     if url.endswith("/"):
         url = url[:-1]
-    return url_id.get(url)
+    return url
+
+url_id: Dict[str, int] = {normalize_url(urls[i]): i for i in range(len(urls))}
+
+def url_to_id(url: str) -> Optional[int]:
+    return url_id.get(normalize_url(url))
 
 def check_sim(url1: str, url2: str) -> bool:
     id1 = url_to_id(url1)
