@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 import json
 import sqlite3
 import pickle
+import datetime
 
 allowed_result_count = 100
 
@@ -12,6 +13,8 @@ database = sqlite3.connect("server_data/database.db")
 database.execute('''
     CREATE TABLE IF NOT EXISTS data (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        submit_time TEXT,
+        client_ip TEXT,
         student_id TEXT,
         avarage_time REAL,
         score REAL,
@@ -21,7 +24,7 @@ database.execute('''
 ''')
 
 student_id_list = open("server_data/student_id_list").read().splitlines()
-testdata = [s.split(" ", 2) for s in open("server_data/testdata").read().splitlines()]
+testdata = [s.split(" ", 1) for s in open("server_data/testdata").read().splitlines()]
 query_list = [x[1] for x in testdata]
 query_count = len(testdata)
 
@@ -101,8 +104,10 @@ class Handler(BaseHTTPRequestHandler):
                     if index != -1:
                         score += 1 / index
 
-                database.execute("INSERT INTO data (student_id, avarage_time, score, indexes, raw_cases) VALUES (?, ?, ?, ?, ?)", (
+                database.execute("INSERT INTO data (student_id, submit_time, client_ip, avarage_time, score, indexes, raw_cases) VALUES (?, ?, ?, ?, ?, ?, ?)", (
                     data.get("student_id"),
+                    self.client_address[0],
+                    datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     data.get("average_time"),
                     score,
                     json.dumps(data.get("indexes")),
@@ -114,7 +119,7 @@ class Handler(BaseHTTPRequestHandler):
 
                 self.send_response(200)
                 self.end_headers()
-                self.wfile.write(json.dumps({"success": True, "score": score}).encode("utf-8"))
+                self.wfile.write(json.dumps({"success": True, "ip": self.client_address[0]}).encode("utf-8"))
             except Exception as e:
                 self.send_response(200)
                 self.end_headers()

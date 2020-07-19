@@ -56,7 +56,7 @@ def submit(student_id: str, cases: List[List[str]], average_time: float):
     if not result["success"]:
         print("Error submitting your result: " + result["error"])
         sys.exit(1)
-    print("Your score is: " + str(result["score"]))
+    print("Your IP has been recorded: " + str(result["ip"]))
 
 def main():
     url, student_id = parse_arguments()
