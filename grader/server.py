@@ -106,12 +106,12 @@ class Handler(BaseHTTPRequestHandler):
 
                 database.execute("INSERT INTO data (student_id, submit_time, client_ip, avarage_time, score, indexes, raw_cases) VALUES (?, ?, ?, ?, ?, ?, ?)", (
                     data.get("student_id"),
-                    self.client_address[0],
                     datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    self.client_address[0],
                     data.get("average_time"),
                     score,
-                    json.dumps(data.get("indexes")),
-                    json.dumps(data.get("raw_cases"))
+                    json.dumps(indexes),
+                    json.dumps(data.get("cases"))
                 ))
                 database.commit()
 
