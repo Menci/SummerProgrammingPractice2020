@@ -1,0 +1,9 @@
+local_test_data/
+slides/
+tester/
+.vscode/
+
+__pycache__/
+
+dump.rdb
+db.sqlite3
