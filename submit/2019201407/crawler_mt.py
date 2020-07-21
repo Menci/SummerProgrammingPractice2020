@@ -37,7 +37,7 @@ class myThread (threading.Thread):
                 flag += 1
         
     # parser
-        if "<html>" not in req.text:    #http://info.ruc.edu.cn/download.php?id=10
+        if "html" not in req.text:    #http://info.ruc.edu.cn/download.php?id=10
             return
         if req.text in texthasher:
             return

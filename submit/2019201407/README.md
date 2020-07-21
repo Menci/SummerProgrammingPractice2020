@@ -54,6 +54,7 @@ Set arguments in *arguments.py*.
 * *# modify file path* (not recommended)
 
 Set stop word list in *stopwords.txt*, word per line.
+
 Set user dictionary in *userdict.txt*, word per line.
 
 
