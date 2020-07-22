@@ -1,0 +1,5 @@
+Flask
+Bootstrap-Flask
+lac
+bs4
+requests
