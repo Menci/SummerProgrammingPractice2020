@@ -1,0 +1,27 @@
+{% extends 'search/template.html' %}
+{% load static %}
+
+{% block page_title %}
+<title>首页 - 这是一个搜索引擎</title>
+{% endblock %}
+
+{% block page_main_content %}
+<div class="row" style="text-align: center;">
+  <div class="col-sm-12">
+    <a href="{% url 'index' %}">
+      <img src="{% static 'search/picture/logo.png' %}" style="padding-top: 120px;"/>
+    </a>
+  </div>
+  <div class="col-sm-12" style="margin-top: 30px; padding-bottom: 50px;">
+    <form method="GET" action="{% url 'search' %}">
+      <span>
+        <input type="text" class="search-input" name="query" placeholder="请输入需要查询的内容" maxlength="128" />
+      </span>
+      <span>
+        <button type="submit" class="btn btn-search btn-primary search-input-append"><span class="glyphicon glyphicon-search"></span>
+          搜索</button>
+      </span>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% block content %}
+    [
+    {% for result in results %}
+        "{{result[1]}}",
+    {% endfor %}
+    ""]
+{% endblock %}
