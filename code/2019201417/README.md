@@ -2,7 +2,9 @@
 
 * this file
 * python2.7
+* 
 **And you need to download the following libraries:**
+
 * bs4
 * lxml
 * jieba
@@ -76,16 +78,23 @@ Generate web pages.
 A search engine that does not contain abstracts.
 
 Run it after unzipping:
+
 >$ python Main.py
 
 For the version which has abstracts, use the above file to generate a text folder and then place the text folder in the location of Main.py.
+
 >\$ ./Spider.py
+>
 >\$ ./Check.py
+>
 >\$ ./Get_Abtract.py
 
 If you need to update, do the following:
+
 >\$ ./Spider.py
+>
 >\$ ./Check.py
+>
 >\$ ./Get_Text.py
 
 And copy all the generated txt files to the location of Main.py.
