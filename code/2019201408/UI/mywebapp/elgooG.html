@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <meta http-equiv = "content-type" content = "text/html; charset = utf-8"/>
+    <style>
+        input{
+            border: 1px solid #ccc;
+            padding: 7px 0px;
+            border-radius: 3px;
+            padding-left:5px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+        }
+        input:focus{
+                border-color: #66afe9;
+                outline: 0;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+        }
+        input{
+            outline-style: none ;
+            border: 1px solid #ccc; 
+            border-radius: 10px;
+        }
+        input{
+            text-indent:10px;
+        }
+        button{
+            outline-style: none ;
+            border: 1px solid #ccc; 
+            border-radius: 10px;
+        }
+        .logo{
+            position: fixed;
+            top:50%;
+            left: 50%;
+            margin-top: -300px;
+            margin-left:-135px ;
+
+        }
+        .search{
+            position: fixed;
+            top:50%;
+            left: 50%;
+            margin-top: -175px;
+            margin-left:-320px ;
+
+        }
+    </style>
+    <title> Welcome to elgooG! </title>
+</head>
+
+<body>
+    <div class = "logo">
+        <img src="./static/google.png", width="270", height="90">
+    </div>
+    <form method = "get" action = "/result">
+        <div class = "search">
+            <input type = "text", name = "name", placeholder = "Nobody knows School of Information in RUC better than me!", style = "height:40px; width:600px; font-size:16px">
+            <button style = "height:40px; width:75px; font-size: 16px; align-items: center;"> Search </button>
+        </div>
+    </form>
+</body>
+
+</html>

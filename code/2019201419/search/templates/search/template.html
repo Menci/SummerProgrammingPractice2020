@@ -1,0 +1,30 @@
+{% load static %}
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset = utf-8">
+  {% block page_title %}{% endblock %}
+
+  <link rel="shortcut icon" href="{% static 'search/picture/favicon.ico' %}" type="image/x-icon">
+  <link type="text/css" rel="stylesheet" href="{% static 'search/css/bootstrap.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'search/css/bootstrap.min.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'search/css/user.css' %}" />
+  <!-- <link type="text/css" rel="stylesheet" href="{% static 'search/css/site.css' %}" /> -->
+  <!-- <script src="{% static 'search/css/bootstrap.min.css' %}"></script> -->
+</head>
+
+<body>
+  {% block page_header %}{% endblock %}
+  <div class="container">
+    {% block page_main_content %}{% endblock %}
+    <footer>
+      <div class="page-footer">
+        <p>一个看上去没有什么用，实际上的确也没什么卵用的搜索引擎</p>
+        <p>Server Time: {{ server_time }}</p>
+        <p>© 2020 <a href="https://github.com/MegaOwIer">MegaOwIer</a>. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>
