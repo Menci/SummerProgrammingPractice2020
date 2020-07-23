@@ -22,3 +22,10 @@ def tf(cnt):
 def idf(cnt, n):
     return log(n / cnt, 2)
 
+if __name__ == "__main__":
+    arr = os.sys.argv
+    if len(arr) == 3:
+        if arr[1] == "-e":
+            print(encrypt(arr[2]))
+        if arr[1] == "-d":
+            print(decrypt(arr[2]))
