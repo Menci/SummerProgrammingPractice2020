@@ -1,0 +1,46 @@
+{% extends 'search/template.html' %}
+{% load static %}
+
+{% block page_title %}
+<title>搜索结果 - 这是一个搜索引擎</title>
+{% endblock %}
+
+{% block page_header %}
+<nav class="navbar navbar-fixed-top page-top-bar under-shadow">
+  <div class="logo">
+    <a href="{% url 'index' %}">
+      <img src="{% static 'search/picture/logo.png' %}" style="padding-top: 17px;" width="100px" />
+    </a>
+  </div>
+  <div class="search-box" style="width: 60%;">
+    <form method="GET" action="{% url 'search' %}">
+      <span>
+        <input type="text" class="search-input" name="query" value="{{ query_text }}" maxlength="128"/>
+      </span>
+      <span>
+        <button type="submit" class="btn btn-search btn-primary search-input-append"><span
+            class="glyphicon glyphicon-search"></span>
+          搜索</button>
+      </span>
+    </form>
+  </div>
+</nav>
+{% endblock %}
+
+{% block page_main_content %}
+<div class="row" style="margin-top: 100px;">
+  <div class="col-sm-12">
+    {% for result in search_results %}
+      <div style="width: 60%;">
+        <a href="{{ result.url }}" target="_blank"><h4>{{ result.title }}</h4></a>
+        <p class="result-url">{{ result.url }}&nbsp;&nbsp;&nbsp;score={{ result.score }}</p>
+        <p>
+          {% autoescape off %}
+          {{ result.snipped }}
+          {% endautoescape %}
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
