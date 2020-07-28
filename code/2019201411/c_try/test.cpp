@@ -83,14 +83,14 @@ int main()
 	freopen("result.out", "r", stdin);
 	freopen("u_t.out", "w", stdout);
 
+	int N = 0;
 	std::string a;
-	for (int i = 1; i <= 6897; ++i) {
-		std::cin >> a;
+	while (std::cin >> a) {
 		std::cout << a << std::endl;
-		if (i != 1) std::cin >> a;
+		N ++;
 	}
 
-	for (int i = 1; i <= 6897; ++i) {
+	for (int i = 1; i <= N; ++i) {
 		extractTitleAndP(std::to_string(i) + ".txt", i);
 	}
 

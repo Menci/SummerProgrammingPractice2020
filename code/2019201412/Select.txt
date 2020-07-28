@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<style type="text/css">
+		div.team {
+			font-size:20px;
+			height:1800px;
+			width:1000px;
+			background-color: #eeeaac;
+			border: 5px green dashed;
+		}
+		
+		.result{
+			padding:10px 12px 10px 12px;
+			background-color: #fff;
+			border-radius: 20px;
+			text-decoration: none;
+			font-size:17px;
+			border: 5px skyblue solid;	
+		}
+	
+		.subtitle{
+			padding:10px 12px 10px 12px;
+			background-color: pink;
+			border-radius: 20px;
+			text-decoration: none;
+			font-size:20px;
+			border: 5px black dotted;
+			color: red;
+			font-family:宋体;
+		}	
+
+		a.decorate:link{
+			display: inline-block;
+			padding:10px 12px 10px 12px;
+			background-color: #ccc;
+			border-radius: 20px;
+			text-decoration: none;
+			font-size:30px;
+		}
+		a.decorate:hover{
+			font-size:20px;
+			background-color: skyblue;
+			color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div class="team">
+		<a href="" class="decorate">
+			<b>Search_Result</b>
+		</a>
+		

@@ -8,6 +8,7 @@ import sys
 import logging
 import math
 from operator import itemgetter, attrgetter
+import argparse
 
 app = Flask(__name__)
 
@@ -23,7 +24,10 @@ Index = {}
 df = {}
 tf = {}#{<(term, docID)>:times}
 
-N = 6897
+parser=argparse.ArgumentParser(prog="app.py")
+parser.add_argument('-num', type=int, default=0, help='the number of the websites, default=0')
+args=parser.parse_args()
+N = args.num
 
 for i in range(1, N + 1):
     filename = str(i) + '.txt~'

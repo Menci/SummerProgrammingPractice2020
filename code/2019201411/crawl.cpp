@@ -151,13 +151,13 @@ void BFS(std::string urlRoot = URL_ROOT)
 	int bfs_counter = 0;
 	while (!Q.empty()) {
 		bfs_counter ++;
-		if (bfs_counter >= MAXCOUNTER) {
+/*		if (bfs_counter >= MAXCOUNTER) {
 			std::cerr << "TOO MANY" << std::endl;
 			exit(0);
-		}
+		}*/
 
 		std::string curUrl = Q.front();
-		std::cout << curUrl << " " << pre[curUrl] << std::endl;
+		std::cout << curUrl << std::endl;
 
 		unsigned int hashValue = encode(curUrl);
 		vis[hashValue] = true;
@@ -170,8 +170,6 @@ void BFS(std::string urlRoot = URL_ROOT)
 
 		Q.pop();
 	}
-
-	std::cout << bfs_counter << std::endl;
 
 	CLEAR();
 
